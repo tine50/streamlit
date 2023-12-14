@@ -354,10 +354,13 @@ def show_main_content():
                 # check whether the col is num or cat (I want only 6 most num feats here)
                 num_plots=[]
                 i=0
+                num_plots = pd.Series(dtype=object)  # Initialize an empty Pandas Series
                 while (i in range(len(imp))) and (len(num_plots) < 7):
-                    if imp.iloc[i,0] == imp.iloc[i,0].upper():
-                        num_plots.append(imp.iloc[i,0])
-                    i+=1
+                    if imp.iloc[i, 0] == imp.iloc[i, 0].upper():
+                        # Create a new Series for the current item and concatenate it
+                        item_series = pd.Series([imp.iloc[i, 0]])
+                        num_plots = pd.concat([num_plots, item_series]).reset_index(drop=True)
+                    i += 1
                     
 # Script JavaScript pour fermer la barre latérale sur les écrans mobiles
 script = """
