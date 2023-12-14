@@ -45,7 +45,7 @@ def get_data(finename):
     return df
 
 
-@st.cache_data()
+@st.cache
 def heatmap(df, max_row):
     fig = px.imshow(df.head(max_row).isna(), color_continuous_scale='OrRd_r')
     fig.update(layout_coloraxis_showscale=True)
@@ -58,7 +58,7 @@ def heatmap(df, max_row):
     return fig
 
 
-@st.cache_data()
+@st.cache
 def histogram(df, x='str', legend=True, client=None): 
     '''client = [df_test, input_client] '''
     if x == "TARGET":
@@ -95,7 +95,7 @@ def histogram(df, x='str', legend=True, client=None):
     return fig  
 
 
-@st.cache_data()
+@st.cache
 def preprocess(df_train, df_test):
     ''' 
     Here we apply preprocessing to X_train and X_test, 
