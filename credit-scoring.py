@@ -19,7 +19,7 @@ from my_functions.functions_cached import *  # personnal functions pkg and modul
 
 #######################################################################################
 # Setting layout & navigation pane
-st.set_page_config(page_title="Baamtu Credit Score Dashboard", # Must be 1st st statement
+st.set_page_config(page_title="Cat Credit Score Dashboard", # Must be 1st st statement
                     page_icon="☮",
                     initial_sidebar_state="expanded")
 
