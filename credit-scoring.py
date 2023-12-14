@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from my_functions.functions_cached import *  # personnal functions pkg and module
 
+print(f"Paaaaaaaaaaaaannnnnnnnnnndassssssssss{pd.__version__}")
 
 #######################################################################################
 # To run this code, type in terminal at the file path: 
