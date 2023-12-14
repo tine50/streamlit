@@ -42,7 +42,7 @@ networkx==3.2.1
 numba==0.58.1
 numpy==1.26.2
 packaging==23.2
-pandas==2.1.4
+pandas==1.4.1
 Pillow==10.1.0
 plotly==5.18.0
 protobuf==4.25.1
