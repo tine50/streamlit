@@ -95,7 +95,7 @@ def histogram(df, x='str', legend=True, client=None):
     return fig  
 
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def preprocess(df_train, df_test):
     ''' 
     Here we apply preprocessing to X_train and X_test, 
