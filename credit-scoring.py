@@ -10,8 +10,7 @@ import pickle
 import matplotlib.pyplot as plt
 from PIL import Image
 from my_functions.functions_cached import *  # personnal functions pkg and module
-
-print(f"Paaaaaaaaaaaaannnnnnnnnnndassssssssss{pd.__version__}")
+import streamlit.components.v1 as components
 
 #######################################################################################
 # To run this code, type in terminal at the file path: 
@@ -55,9 +54,9 @@ def connexion():
         <div id="flèche-haut">
             &#8679; 
         </div>
-        <p>User : admin, Password : 123</p>
+        <p>User : mister_tine, Password : 123</p>
         """
-        import streamlit.components.v1 as components
+        
 
         # JavaScript pour le défilement vers le haut
         script_js = """
@@ -92,7 +91,7 @@ def connexion():
     # Bouton de connexion
     if st.sidebar.button("Connexion"):
         # Vérification des identifiants (remplacer par votre propre logique)
-        if username == "admin" and password == "123":
+        if username == "mister_tine" and password == "123":
             st.success("Connecté en tant que {}".format(username))
             st.session_state['authenticated'] = True
             st.experimental_rerun()
