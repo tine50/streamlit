@@ -82,7 +82,7 @@ def connexion():
         # st.image("assets/banner.jpg", width=100)
         st.header("** Abdoussalam TINE **")
         st.markdown("L'objectif de ce projet :")
-        st.markdown(" Mise en place d'un outil de scoring de crédit destiné à évaluer la probabilité de remboursement d'un client, accompagné d'un tableau de bord interactif. Ceci permet de classer les demandes de crédit en tant qu'accordées ou refusées.")
+        st.markdown(" Mise en place d'un outil de scoring de crédit destiné à évaluer la probabilité de remboursement d'un client, accompagné d'un tableau de bord interactif. Ceci permet de catégoriser les demandes de crédit comme acceptées ou rejetées.")
     #st.markdown("Let's start")
     # Créer des champs pour les identifiants
     username = st.sidebar.text_input("Nom d'utilisateur")
