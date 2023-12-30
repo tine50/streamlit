@@ -138,17 +138,17 @@ def show_main_content():
     if rad_who == '👨🏽‍💼 Salarié': 
         np.random.seed(13) # one major change is that client is directly asked as input since sidebar
         label_test = df_test['SK_ID_CURR'].sample(50).sort_values()
-        radio = sb.radio('', ['Listes des ID Client']) #'Renseigner le Client'
-        if radio == 'Listes des ID Client': # Choice choose preselected seed13 or a known client ID
-            input_client = sb.selectbox('Listes des ID Client', label_test)
+        radio = sb.radio('', ['Liste des ID clients']) #'Renseigner le Client'
+        if radio == 'Liste des ID clients': # Choice choose preselected seed13 or a known client ID
+            input_client = sb.selectbox('Liste des ID clients', label_test)
         #if radio == 'Renseigner le Client':
             #input_client = int(sb.text_input('Renseigner le Client', value=147254))
 
         sb.markdown('**Navigation**')
         rad = sb.radio('', ['🏠 Accueil', 
         '🔎 Données Client',
-        '👁️ Une Vue Global', 
-        '🚀 Prediction Client'])
+        '👁️ Une Vue Globale', 
+        '🚀 Prédiction clientèle'])
     else:
         sb.markdown('**Navigation**')
         rad = sb.radio('', ['🏠 Accueil'])
@@ -186,13 +186,13 @@ def show_main_content():
 
     #######################################################################################
 
-    if rad == '👁️ Une Vue Global':
+    if rad == '👁️ Une Vue Globale':
         with dataset:
-            st.header("**Analyse Courte.** \n ----") # title > header > subheader > markdown ~ text
+            st.header("**Une brève analyse.** \n ----") # title > header > subheader > markdown ~ text
             #st.markdown("In this project, we focus only on the application train dataset.")
             
-            st.subheader("Données Global.")
-            max_row = st.slider("Merci de selectionner le nombre de client que vous souhaitez afficher", value=1000, min_value=1,
+            st.subheader("Données globales.")
+            max_row = st.slider("Merci de sélectionner le nombre de clients que vous souhaitez afficher.", value=1000, min_value=1,
                                 max_value=len(df_train)) 
             st.write(df_train.head(max_row))
             
@@ -212,27 +212,27 @@ def show_main_content():
     ##########################################################################################################################
     if rad == '🔎 Données Client': 
         with eda:
-            st.header("**Données Client.** \n ----")
+            st.header("**Données relatives au client** \n ----")
             # retrieving whole row of client from sidebar input ID
             client_data = df_test[df_test.SK_ID_CURR == input_client]
             client_data = client_data.dropna(axis=1) # avoiding bugs
 
             st.subheader(f"**Client ID: {input_client}.**")
             # plotting features from train set, with client's data as dashed line (client!=None in func)
-            st.subheader("Ranking client in some features.")      
+            st.subheader("Classement des clients selon certaines caractéristiques.")      
             col1, col2, col3 = st.columns(3)
             col1.plotly_chart(histogram(df_train, x='CODE_GENDER', client=[df_test, input_client]), use_container_width=True)
             col2.plotly_chart(histogram(df_train, x='EXT_SOURCE_1', client=[df_test, input_client]), use_container_width=True)
             col3.plotly_chart(histogram(df_train, x='EXT_SOURCE_2', client=[df_test, input_client]), use_container_width=True)
 
-            st.subheader("Souhaitez-vous realisez quelques analyses?.")
+            st.subheader("Souhaitez-vous réaliser quelques analyses ?")
             col1, col2, col3 = st.columns(3)
             num_col = client_data.select_dtypes(include=np.number).columns.sort_values()
             input1 = col1.selectbox('1st plot', num_col)
             input2 = col2.selectbox('2nd plot', num_col[1:])
             input3 = col3.selectbox('3rd plot', num_col[2:])
 
-            st.subheader("Vous pouvez realisez davantage d'analyses bivariées.")
+            st.subheader("Vous pouvez réaliser davantage d'analyses bivariées.")
             col4, col5, col6 = st.columns(3)
             cat_col = client_data.select_dtypes(exclude=np.number).columns.sort_values()
             input4 = col4.selectbox('1st plot', cat_col[1:])
@@ -248,10 +248,10 @@ def show_main_content():
                 col5.plotly_chart(histogram(df_train, x=input5, legend=False, client=[df_test, input_client]),use_container_width=True)
                 col6.plotly_chart(histogram(df_train, x=input6, legend=False, client=[df_test, input_client]),use_container_width=True)
             
-            st.subheader("Plus d'information sur ce client.")
+            st.subheader("Davantage d'informations sur ce client.")
             # displaying values from a dropdown (had issues with NaNs that's why .dropna())
             col1, col2 = st.columns(2)
-            info = col1.selectbox('Menons notre enquete sur ce client ?', client_data.columns.sort_values())     
+            info = col1.selectbox('Menons notre enquête sur ce client ?', client_data.columns.sort_values())     
             info_print = client_data[info].to_numpy()[0]
 
             col1.subheader(info_print)
@@ -260,9 +260,9 @@ def show_main_content():
             col2.write(client_data)
 
     ###########################################################################################################################
-    if rad == '🚀 Prediction Client': 
+    if rad == '🚀 Prédiction clientèle': 
         with model_predict:
-            st.header("**La Capacité du client à etre solvable.** \n ----")
+            st.header("**La capacité du client à être solvable.** \n ----")
 
             col1, col2 = st.columns(2)
             col1.markdown(f'**Client ID: {input_client}**')
@@ -289,10 +289,9 @@ def show_main_content():
                 col1, col2 = st.columns(2)
                 # adapting message wether client's pos or neg
                 if y_prob[1] < y_prob[0]:
-                    col1.subheader(f"**Pret Accordé!!.**")
+                    col1.subheader(f"**Pret Accordé !!.**")
                     st.balloons()
-                    st.success(f"**Ce client à une forte capacité de remboursement !!.")
-                    #st.text(f"**Ce client à une forte capacité de remboursement !!.")
+                    st.success(f"**Ce client a une forte capacité de remboursement !!.")
                 else:
                     col1.subheader(f"**Desolé, Pret non accordé.**")
                     #st.text(f"**Ce client présente un déficit de payement trés impportant !!.")
@@ -326,7 +325,7 @@ def show_main_content():
                 fig.update_layout(margin=dict(l=50, r=50, t=50, b=10))  
                 col2.plotly_chart(fig, use_container_width=True)
 
-                st.subheader("**Les variables qui nous confortent sur notre decision.**")
+                st.subheader("**Les variables qui renforcent notre décision.**")
                 # then plotting feature importance, but for readibility slicing absissa labels using:
                 labels = [(i[:7] + '...'+i[-7:]) if len(i) > 17 else i for i in imp[0]]
                 fig = px.bar(   imp.head(10),
