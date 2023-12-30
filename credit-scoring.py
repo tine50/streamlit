@@ -20,7 +20,7 @@ import streamlit.components.v1 as components
 #######################################################################################
 # Setting layout & navigation pane
 st.set_page_config(page_title="Cat Credit Score Dashboard", # Must be 1st st statement
-                    page_icon="☮",
+                    page_icon="chart_with_upwards_trend",
                     initial_sidebar_state="expanded")
 
 # defining containers of the app
